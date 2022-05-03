@@ -20,6 +20,9 @@ public class Dish {
     this.type = type;
   }
 
+
+
+
   public String getName() {
     return name;
   }
@@ -71,5 +74,7 @@ public class Dish {
     dishTags.put("prawns", asList("tasty", "roasted"));
     dishTags.put("salmon", asList("delicious", "fresh"));
   }
+
+  public enum CaloricLevel { DIET, NORMAL, FAT };
 
 }

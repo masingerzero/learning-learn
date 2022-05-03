@@ -3,17 +3,17 @@ package org.masingerzero.modernjava;
 
 import org.masingerzero.modernjava.model.Dish;
 
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.reducing;
 
 public class Sandbox {
-    enum CaloricLevel { DIET, NORMAL, FAT };
+
 
     public static void main(String[] args) {
 
-        Long totalDishes;
-        totalDishes = Dish.menu.stream()
-                .collect(Collectors.counting());
-
+        Integer collect = Dish.menu.stream()
+                .collect(reducing(0, Dish::getCalories, Integer::sum));
+        System.out.println(collect);
+        
 
     }
 
