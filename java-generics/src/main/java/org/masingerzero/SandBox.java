@@ -13,15 +13,15 @@ public class SandBox {
 //        String[] strings = exchangeArray(array, 0, 1);
 //        System.out.println(Arrays.toString(strings));
 
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+//        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
 
 //        orderList(integers);
 //        List<Integer> orderSubList = orderSubList(integers, 0, 4);
 //        List<Integer> orderSubList = orderSubListReversed(integers, 0, 4);
-        Integer maximal = findMaximalInRange(integers, 0, 4);
-        System.out.println(maximal);
-
-        
+//        Integer maximal = findMaximalInRange(integers, 0, 4);
+//        System.out.println(maximal);
+          FooList<String> list = new FooList<>();
+          FooList.cons(42, FooList.nil());
     }
 
 
@@ -92,7 +92,7 @@ public class SandBox {
         return maximal;
     }
 
-    public static<T> int findMaximalInRange02(List<Integer> list, int from, int to) {
+    public static <T> int findMaximalInRange02(List<Integer> list, int from, int to) {
         List<Integer> subList = list.subList(from, to);
         System.out.println(subList);
         Comparator<Integer> comparator = Integer::compareTo;
@@ -102,7 +102,6 @@ public class SandBox {
         Integer maximal = subList.get(0);
         return maximal;
     }
-
 
 
 }
