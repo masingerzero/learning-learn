@@ -1,7 +1,9 @@
-package com.manning.sbip.ch01;
+package com.manning.sbip.main;
 
 
+import com.manning.sbip.main.ch02.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;

@@ -1,17 +1,18 @@
-package com.manning.sbip.main;
+package com.manning.sbip.main.ch02;
 
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConstructorBinding
-@ConfigurationProperties("app.sbip.ct")
+//@ConstructorBinding
+//@ConfigurationProperties("app.sbip.ct")
 public class AppProperties {
 
     /**
      * Application Name
      */
+
     private final String name;
 
     /**

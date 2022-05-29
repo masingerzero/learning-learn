@@ -1,10 +1,9 @@
-package com.manning.sbip.main;
+package com.manning.sbip.main.ch02;
 
-import com.manning.sbip.main.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class AppService {
     private final AppProperties appProperties;
 

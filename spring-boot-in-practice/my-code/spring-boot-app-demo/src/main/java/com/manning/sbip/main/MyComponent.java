@@ -1,4 +1,4 @@
-package com.manning.sbip.ch01;
+package com.manning.sbip.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

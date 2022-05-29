@@ -1,1 +1,0 @@
-package com.manning.javapersistence.springdatajpa;
