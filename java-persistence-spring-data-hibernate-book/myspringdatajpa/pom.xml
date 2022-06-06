@@ -3,7 +3,7 @@
     http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.manning.javapersistence</groupId>
-    <artifactId>mapping-value-types</artifactId>
+    <artifactId>my-spring-data-jpa</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>mapping-value-types</name>

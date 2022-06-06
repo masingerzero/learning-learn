@@ -34,6 +34,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Currency;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,12 +54,14 @@ public class MappingValuesSpringDataJPATest {
 
         User user = new User();
         user.setUsername("username");
-        user.setHomeAddress(new Address("Flowers Street"), new City("12345", "Boston", "US"));
+        user.setHomeAddress(new Address("Flowers Street"), new City(new SwissZipcode("12345"), "Boston", "US"));
         userRepository.save(user);
 
         Item item = new Item();
         item.setName("Some Item");
         item.setMetricWeight(2);
+        item.setBuyNowPrice(new MonetaryAmount(BigDecimal.valueOf(1.1), Currency.getInstance("USD")));
+        item.setInitialPrice(new MonetaryAmount(BigDecimal.valueOf(1.0), Currency.getInstance("EUR")));
         item.setDescription("descriptiondescription");
         itemRepository.save(item);
 
@@ -69,17 +72,18 @@ public class MappingValuesSpringDataJPATest {
                 () -> assertEquals(1, users.size()),
                 () -> assertEquals("username", users.get(0).getUsername()),
                 () -> assertEquals("Flowers Street", users.get(0).getHomeAddress().getStreet()),
-                () -> assertEquals("12345", users.get(0).getHomeAddress().getCity().getZipcode()),
+                () -> assertEquals("12345", users.get(0).getHomeAddress().getCity().getZipcode().getValue()),
                 () -> assertEquals("Boston", users.get(0).getHomeAddress().getCity().getName()),
                 () -> assertEquals(1, items.size()),
                 () -> assertEquals("AUCTION: Some Item", items.get(0).getName()),
+                () -> assertEquals("2.20 USD", items.get(0).getBuyNowPrice().toString()),
                 () -> assertEquals("descriptiondescription", items.get(0).getDescription()),
                 () -> assertEquals(AuctionType.HIGHEST_BID, items.get(0).getAuctionType()),
                 () -> assertEquals("descriptiond...", items.get(0).getShortDescription()),
                 () -> assertEquals(2.0, items.get(0).getMetricWeight()),
                 () -> assertEquals(LocalDate.now(), items.get(0).getCreatedOn()),
                 () -> assertTrue(ChronoUnit.SECONDS.between(LocalDateTime.now(), items.get(0).getLastModified()) < 1),
-                () -> assertEquals(new BigDecimal("1.00"), items.get(0).getInitialPrice())
+                () -> assertEquals(new BigDecimal("2.00"), items.get(0).getInitialPrice().getValue())
         );
 
     }

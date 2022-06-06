@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class City {
     @NotNull
     @Column(nullable = false, length = 5) // Override VARCHAR(255)
-    private String zipcode;
+    private Zipcode zipcode;
 
     @NotNull
     @Column(nullable = false)
@@ -19,20 +19,15 @@ public class City {
     private String country;
 
     public City() {
-
-
     }
 
-    public City(String zipcode, String name, String country) {
+    public City(Zipcode zipcode, String name, String country) {
         this.zipcode = zipcode;
         this.name = name;
         this.country = country;
     }
 
 
-    public String getZipcode() {
-        return zipcode;
-    }
 
     public String getName() {
         return name;
@@ -40,5 +35,9 @@ public class City {
 
     public String getCountry() {
         return country;
+    }
+
+    public Zipcode getZipcode() {
+        return zipcode;
     }
 }

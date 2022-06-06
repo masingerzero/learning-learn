@@ -20,6 +20,8 @@
  */
 package com.manning.javapersistence.ch06.model;
 
+import com.manning.javapersistence.ch06.converter.ZipcodeConverter;
+
 import javax.persistence.*;
 
 @Entity
@@ -34,6 +36,7 @@ public class User {
 
     // The Address is @Embeddable, no annotation needed here...
     @Embedded
+    @Convert(converter = ZipcodeConverter.class, attributeName = "city.zipcode")
     private Address homeAddress;
 
 

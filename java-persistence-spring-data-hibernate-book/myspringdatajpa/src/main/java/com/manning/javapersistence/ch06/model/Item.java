@@ -20,7 +20,11 @@
  */
 package com.manning.javapersistence.ch06.model;
 
+import com.manning.javapersistence.ch06.converter.MonetaryAmountConverter;
+import com.manning.javapersistence.ch06.converter.MonetaryAmountUserType;
+import com.sun.jdi.NativeMethodException;
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.persistence.AccessType;
@@ -88,13 +92,26 @@ public class Item {
     @UpdateTimestamp
     private LocalDateTime lastModified;
 
-    @Column(insertable = false)
-    @ColumnDefault("1.00")
-    @Generated(
-            org.hibernate.annotations.GenerationTime.INSERT
+    @NotNull
+    @org.hibernate.annotations.Type(
+            type = "monetary_amount_eur"
     )
-    private BigDecimal initialPrice;
+    @org.hibernate.annotations.Columns(columns = {
+            @Column(name = "INITIALPRICE_AMOUNT"),
+            @Column(name = "INITIALPRICE_CURRENCY", length = 3)
+    })
+    private MonetaryAmount initialPrice;
 
+
+    @NotNull
+    @org.hibernate.annotations.Type(type = "monetary_amount_usd")
+    @org.hibernate.annotations.Columns(
+            columns = {
+                    @Column(name = "BUYNOWPRICE_AMOUNT"),
+                    @Column(name = "BUYNOWPRICE_CURRENCY", length = 3)
+            }
+    )
+    private MonetaryAmount buyNowPrice;
     /* 
         Hibernate will call <code>getName()</code> and <code>setName()</code> when loading and storing items.
     */
@@ -151,7 +168,19 @@ public class Item {
         return lastModified;
     }
 
-    public BigDecimal getInitialPrice() {
+    public MonetaryAmount getInitialPrice() {
         return initialPrice;
+    }
+
+    public MonetaryAmount getBuyNowPrice() {
+        return buyNowPrice;
+    }
+
+    public void setBuyNowPrice(MonetaryAmount buyNowPrice) {
+        this.buyNowPrice = buyNowPrice;
+    }
+
+    public void setInitialPrice(MonetaryAmount initialPrice) {
+        this.initialPrice = initialPrice;
     }
 }
