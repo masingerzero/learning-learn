@@ -3,16 +3,20 @@ package com.manning.javapersistence.ch06.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-//@MappedSuperclass
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DB_TYPE")
+@Inheritance(
+        strategy = InheritanceType.SINGLE_TABLE
+)
+@DiscriminatorColumn(name = "BD_TYPE")
 public abstract class BillingDetails {
     @Id
     @GeneratedValue(generator = "ID_GENERATOR")
     private Long id;
 
     @NotNull
+    @Column(
+            nullable = false
+    )
     private String owner;
 
     public BillingDetails() {

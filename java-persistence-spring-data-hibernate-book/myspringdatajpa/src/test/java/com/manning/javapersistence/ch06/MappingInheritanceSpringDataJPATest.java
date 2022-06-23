@@ -41,6 +41,7 @@ public class MappingInheritanceSpringDataJPATest {
         List<BillingDetails> billingDetails2 = billingDetailsRepository.findByOwner("John Smith");
         List<CreditCard> creditCards = creditCardRepository.findAll();
 
+
         assertAll(
                 () -> assertEquals(2, billingDetails.size()),
                 () -> assertEquals(1, billingDetails2.size()),

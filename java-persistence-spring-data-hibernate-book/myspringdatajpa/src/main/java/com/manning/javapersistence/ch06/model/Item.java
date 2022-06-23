@@ -56,6 +56,12 @@ public class Item {
     @Column(name = "ITEM_NAME") // Mappings are still expected here!
     private String name;
 
+    @Embedded
+    private Dimensions dimensions;
+
+    @Embedded
+    private Weight weight;
+
     @OneToMany(mappedBy = "item",
             cascade = CascadeType.PERSIST,
             orphanRemoval = true) // Includes CascadeType.REMOVE
@@ -112,7 +118,24 @@ public class Item {
             }
     )
     private MonetaryAmount buyNowPrice;
-    /* 
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public Weight getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Weight weight) {
+        this.weight = weight;
+    }
+
+    /*
         Hibernate will call <code>getName()</code> and <code>setName()</code> when loading and storing items.
     */
     public String getName() {

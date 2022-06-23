@@ -7,14 +7,21 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("CC")
+@SecondaryTable(
+        name = "CREDITCARD",
+        pkJoinColumns = @PrimaryKeyJoinColumn(name = "CREDITCARD_ID")
+)
 public class CreditCard extends BillingDetails {
     @NotNull
+    @Column(table = "CREDITCARD", nullable = false)
     private String cardNumber;
 
     @NotNull
+    @Column(table = "CREDITCARD", nullable = false)
     private String expMonth;
 
     @NotNull
+    @Column(table = "CREDITCARD", nullable = false)
     private String expYear;
 
     public CreditCard() {
