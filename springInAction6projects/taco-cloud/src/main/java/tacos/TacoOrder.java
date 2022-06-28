@@ -1,67 +1,61 @@
 package tacos;
-
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import com.fasterxml.jackson.databind.ser.std.UUIDSerializer;
-import lombok.Data;
-import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.CreditCardNumber;
+
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
-@Table("orders")
+
 public class TacoOrder implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @PrimaryKey
-    private UUID id = Uuids.timeBased();
 
-    private Date placedAt = new Date();
 
-    @NotBlank(message = "Delivery name is required")
-    String deliveryName;
+  private Long id;
 
-    @NotBlank(message = "Delivery street name is required")
-    String deliveryStreet;
+  private Date placedAt = new Date();
 
-    @NotBlank(message = "Delivery city is required")
-    String deliveryCity;
+  @NotBlank(message="Delivery name is required")
+  private String deliveryName;
 
-    @NotBlank(message = "Delivery state is required")
-    String deliveryState;
+  @NotBlank(message="Street is required")
+  private String deliveryStreet;
 
-    @NotBlank(message = "Delivery zip is required")
-    String deliveryZip;
+  @NotBlank(message="City is required")
+  private String deliveryCity;
 
-    @CreditCardNumber(message = "Not a valid credit card number")
-    String ccNumber;
+  @NotBlank(message="State is required")
+  private String deliveryState;
 
-    @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([2-9][0-9])$",
-            message = "Must be formatted MM/YY")
-    String ccExpiration;
+  @NotBlank(message="Zip code is required")
+  private String deliveryZip;
 
-    @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
-    String ccCVV;
+  @CreditCardNumber(message="Not a valid credit card number")
+  private String ccNumber;
 
-    @Column("tacos")
-    private List<TacoUDT> tacos = new ArrayList<>();
+  @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([2-9][0-9])$",
+           message="Must be formatted MM/YY")
+  private String ccExpiration;
 
-    public TacoOrder() {
+  @Digits(integer=3, fraction=0, message="Invalid CVV")
+  private String ccCVV;
 
-    }
 
-    public void addTaco(TacoUDT taco) {
-        tacos.add(taco);
-    }
+  private List<Taco> tacos = new ArrayList<>();
+
+  public void addTaco(Taco taco) {
+    this.tacos.add(taco);
+  }
+
 }

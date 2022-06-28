@@ -1,31 +1,25 @@
 package tacos.web;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
 import tacos.Ingredient;
-import tacos.Ingredient.Type;
 import tacos.data.IngredientRepository;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import static tacos.Ingredient.Type.*;
 
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
-    IngredientRepository ingredientRepository;
+  private IngredientRepository ingredientRepo;
 
-    public IngredientByIdConverter(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
+  @Autowired
+  public IngredientByIdConverter(IngredientRepository ingredientRepo) {
+    this.ingredientRepo = ingredientRepo;
+  }
 
-    @Override
-    public Ingredient convert(String id) {
-        Optional<Ingredient> byId = ingredientRepository.findById(id);
-        return ingredientRepository.findById(id).orElse(null);
-    }
+  @Override
+  public Ingredient convert(String id) {
+    return ingredientRepo.findById(id).orElse(null);
+  }
 
 }

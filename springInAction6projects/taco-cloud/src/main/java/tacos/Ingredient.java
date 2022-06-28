@@ -1,31 +1,23 @@
 package tacos;
 
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-
-import static lombok.AccessLevel.PRIVATE;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor(access = PRIVATE, force = true)
-@Table("ingredients")
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 public class Ingredient {
 
-    @PrimaryKey
-    private final String id;
-    private final String name;
-    private final Type type;
 
-    public enum Type {
-        WRAP,
-        PROTEIN,
-        VEGGIES,
-        CHEESE,
-        SAUCE
-    }
+  private String id;
+  private String name;
+  private Type type;
+
+  public enum Type {
+    WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+  }
 
 }
