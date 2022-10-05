@@ -1,6 +1,9 @@
 package org.masingerzero;
 
-public interface MyList<E> extends MyCollection<E> {
-    public void addAll(MyCollection<? extends E> c);
+import java.util.List;
 
+public interface MyList<E> extends List<E> {
+    public boolean containsElement(E e);
 }
+
+
