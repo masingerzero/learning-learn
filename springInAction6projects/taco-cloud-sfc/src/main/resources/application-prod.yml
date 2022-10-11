@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: root
+    password: juanfe
+    url: jdbc:mysql://localhost/tacocloud
+
+  jpa:
+    generate-ddl: true
+
+

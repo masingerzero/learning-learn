@@ -1,0 +1,41 @@
+debug: true
+spring:
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+  jpa:
+    properties:
+      hibernate:
+        format_sql=true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+taco:
+  orders:
+    page-size: 3
+
+test:
+  foo: "the foo"
+  bar: "the bar"
+  baz: "the baz"
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: TRACE
+#        type:
+#          descriptor:
+#            sql: TRACE
+#trace: true
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        core: DEBUG
+#taco:
+#  orders:
+#    page-size: 40
