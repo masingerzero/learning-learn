@@ -18,7 +18,7 @@ public class TypeInference {
     }
 
     void test() {
-        Foo.foo(value -> true).booleanValue(); // Compile error here
+//        Foo.foo(value -> true).booleanValue(); // Compile error here
     }
 
 
