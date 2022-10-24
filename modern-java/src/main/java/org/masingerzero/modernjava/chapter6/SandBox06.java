@@ -1,119 +1,142 @@
 package org.masingerzero.modernjava.chapter6;
 
 
-import org.w3c.dom.css.ElementCSSInlineStyle;
-
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-class TestMain06 {
+class TestSandBox06 {
     public static void main(String[] args) {
-        List<Integer> integers = Arrays.asList(1,3,5);
-        List<Integer> collect = integers.stream()
-                .collect(new ListCollector<>());
-//        System.out.println(collect);
-        System.out.println(collect.hashCode());
-//        List<String> collect = Streams.getStream("")
-//                .collect(FooCollectors.toList());
+//        List<Integer> primes = IntStream.rangeClosed(2, 20)
+//                .boxed().collect(new PrimesCollector());
+//        System.out.println(primes);
+
+        Map<Boolean, List<Integer>> primes = IntStream.rangeClosed(2, 20)
+                .boxed()
+                .collect(new PrimesCollectorToMap());
+        System.out.println(primes);
+
     }
 }
 
-interface MyStream<T> {
-    <R, A> R collect(MyCollector<? super T, A, R> collector);
-}
 
-class ListCollector<T> implements Collector<T, List<T>, List<T>> {
+class Primes {
+    public static boolean isPrime(List<Integer> primes, int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return primes.stream()
+                .takeWhile(i -> i <= candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
+    }
+
+    public static boolean isPrimeV8(List<Integer> primes, int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return primes.stream()
+                .filter(i -> i <= candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
+    }
+
+    public static boolean isPrimeV3(List<Integer> primes, int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return takeWhile(primes, integer -> integer <= candidateRoot)
+                .stream()
+                .noneMatch(integer -> candidate % integer == 0);
+
+    }
+
+
+//    public Map<Boolean, List<Integer>> partitionPrimes(int n) {
+//        return IntStream.rangeClosed(2, n).boxed()
+//                .collect(partitioningBy(candidate -> isPrime(candidate));
+//    }
+
+
+
+    public static <A> List<? extends A> takeWhile(List<? extends A> list, Predicate<? super A> p) {
+        int i = 0;
+
+        for (A item : list) {
+
+            if (!p.test(item)) {
+                return list.subList(0, i);
+
+            }
+
+            i++;
+
+        }
+
+        return list;
+
+    }
+
+
+}
+//Map<Boolean, List<Integer>>
+class PrimesCollector implements Collector<Integer, List<Integer>, List<Integer>> {
+    @Override
+    public Supplier<List<Integer>> supplier() {
+        return ArrayList::new;
+    }
 
     @Override
-    public Supplier<List<T>> supplier() {
-        return () -> {
-            ArrayList<T> arrayList = new ArrayList<>();
-
-            return arrayList;
+    public BiConsumer<List<Integer>, Integer> accumulator() {
+        return (list, i) -> {
+            if (Primes.isPrimeV3(list, i)) {
+                list.add(i);
+            }
         };
     }
 
     @Override
-    public BiConsumer<List<T>, T> accumulator() {
-        return List::add;
-    }
-
-    @Override
-    public BinaryOperator combiner() {
+    public BinaryOperator<List<Integer>> combiner() {
         return null;
     }
 
     @Override
-    public Function<List<T>, List<T>> finisher() {
-        return ts -> {
-            return ts;
-        };
+    public Function<List<Integer>, List<Integer>> finisher() {
+        return Function.identity();
     }
 
     @Override
     public Set<Characteristics> characteristics() {
-        return new HashSet<>();
+        return Set.of(Characteristics.IDENTITY_FINISH);
     }
 }
 
 
-interface MyCollector<T, A, R> {
+class PrimesCollectorToMap implements Collector<Integer, Map<Boolean, List<Integer>>, Map<Boolean, List<Integer>>> {
+    @Override
+    public Supplier<Map<Boolean, List<Integer>>> supplier() {
+        return () -> {
+            Map<Boolean, List<Integer>> map = new HashMap<>();
+            map.put(true, new ArrayList<>());
+            map.put(false, new ArrayList<>());
+            return map;
+        };
+    }
 
-    /**
-     * A function that creates and returns a new mutable result container.
-     *
-     * @return a function which returns a new, mutable result container
-     */
-    Supplier<A> supplier();
+    @Override
+    public BiConsumer<Map<Boolean, List<Integer>>, Integer> accumulator() {
+        return (booleanListMap, i) -> booleanListMap.get(Primes.isPrime(booleanListMap.get(true), i)).add(i);
+    }
 
-    /**
-     * A function that folds a value into a mutable result container.
-     *
-     * @return a function which folds a value into a mutable result container
-     */
-    BiConsumer<A, T> accumulator();
+    @Override
+    public BinaryOperator<Map<Boolean, List<Integer>>> combiner() {
 
-    /**
-     * A function that accepts two partial results and merges them.  The
-     * combiner function may fold state from one argument into the other and
-     * return that, or may return a new result container.
-     *
-     * @return a function which combines two partial results into a combined
-     * result
-     */
-    BinaryOperator<A> combiner();
+        return (map1, map2) -> {
+            map1.putAll(map2);
+            return map1;
+        };
+    }
 
-    /**
-     * Perform the final transformation from the intermediate accumulation type
-     * {@code A} to the final result type {@code R}.
-     *
-     * <p>If the characteristic {@code IDENTITY_FINISH} is
-     * set, this function may be presumed to be an identity transform with an
-     * unchecked cast from {@code A} to {@code R}.
-     *
-     * @return a function which transforms the intermediate result to the final
-     * result
-     */
-    Function<A, R> finisher();
+    @Override
+    public Function<Map<Boolean, List<Integer>>, Map<Boolean, List<Integer>>> finisher() {
+        return Function.identity();
+    }
 
-    /**
-     * Returns a {@code Set} of {@code Collector.Characteristics} indicating
-     * the characteristics of this Collector.  This set should be immutable.
-     *
-     * @return an immutable set of collector characteristics
-     */
-    Set<Collector.Characteristics> characteristics();
-}
-
-class Streams {
-    public static<T> MyStream<T> getStream(T t) {
-        return null;
+    @Override
+    public Set<Characteristics> characteristics() {
+        return Set.of(Characteristics.IDENTITY_FINISH);
     }
 }
-
-
