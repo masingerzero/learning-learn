@@ -3,6 +3,7 @@ package org.masingerzero.modernjava.chapter07;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -44,14 +45,21 @@ public class ParallelStreamBenchmarks {
     //avgt   10  3.211 ± 0.020  ms/op
 //    @Benchmark
     public long rangedSum() {
+
         return LongStream.rangeClosed(1, N).reduce(0L, Long::sum);
     }
 
     //avgt   10  0.523 ± 0.012  ms/op
 //    @Benchmark
-    public long parallelRangedSum()  {
+
+
+    @Benchmark
+//    ParallelStreamBenchmarks.parallelLongSum  avgt   10  48.674 ± 0.268  ms/op
+    public long parallelLongSum() {
         return LongStream.rangeClosed(1, N)
                 .parallel()
-                .reduce(0l, Long::sum);
+                .reduce(0L, Long::sum);
+
     }
+
 }

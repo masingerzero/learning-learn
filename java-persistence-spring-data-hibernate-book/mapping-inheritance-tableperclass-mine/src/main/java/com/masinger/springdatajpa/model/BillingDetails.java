@@ -11,6 +11,7 @@ public abstract class BillingDetails {
     Long id;
 
     @NotNull
+    @Column(nullable = false)
     String owner;
 
     protected BillingDetails() {

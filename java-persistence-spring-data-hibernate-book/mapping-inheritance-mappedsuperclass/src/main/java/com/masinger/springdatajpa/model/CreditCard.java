@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class CreditCard extends BillingDetails {
+public class CreditCard extends BillingDetails implements ElectronicPaymentOption {
 
     @NotNull
     private String cardNumber;

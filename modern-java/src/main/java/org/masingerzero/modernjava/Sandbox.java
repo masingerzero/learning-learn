@@ -1,37 +1,25 @@
 package org.masingerzero.modernjava;
 
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sandbox {
 
     public static void main(String[] args) {
-        Supplier<Map<Boolean, List<Integer>>> supplier = () -> new HashMap<>() {{
-            put(true, new ArrayList<>());
-            put(false, new ArrayList<>());
-        }};
+//        System.out.println("Hello Shell");
+//       new Sandbox().testOverflow(0);
 
-        List<Integer> integers = new ArrayList<>() {{
-            add(1);
-            add(2);
-        }};
-
-
-
-
+//        Map<String, List<>> characterMap = new HashMap<>();
+//        characterMap.put("one", 'a');
+//        characterMap.put("one", 'b');
+//
+//        System.out.println(characterMap);
 
     }
 
-    public static void testWildcardPredicate (Predicate<? super Integer> predicate) {
-        Integer i = 1;
-        predicate.test(i);
-    }
-
-    public static<T> void testPredicate(Predicate<? super T> p, T t) {
-        p.test(t);
+    public void testOverflow(int i) {
+        System.out.println(i++);
+        testOverflow(i);
     }
 
 }

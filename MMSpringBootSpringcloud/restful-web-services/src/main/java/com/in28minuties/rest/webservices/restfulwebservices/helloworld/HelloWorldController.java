@@ -1,9 +1,20 @@
 package com.in28minuties.rest.webservices.restfulwebservices.helloworld;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.Locale;
 
 @RestController
 public class HelloWorldController {
+
+    private MessageSource messageSource;
+
+    public HelloWorldController(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/hello-world")
     public String helloWorld() {
@@ -20,14 +31,13 @@ public class HelloWorldController {
         return new HelloWorldBean(String.format("Hello World %s", name));
     }
 
-    @GetMapping("/foo/bar/{id1}")
-    public void testTemplating(@PathVariable String id1) {
-
-    }
-
-    @GetMapping("/foo/bar/{id2}")
-    public void testTemplating2(@PathVariable String id2) {
-
+    @GetMapping("/hello-world-internationalized")
+    public String helloWorldInternationalized(Locale locale) {
+        Locale locale1 = LocaleContextHolder.getLocale();
+        return
+                messageSource
+                        .getMessage(
+                                "good.morning.message", null, "--default message--", locale1);
     }
 
 }

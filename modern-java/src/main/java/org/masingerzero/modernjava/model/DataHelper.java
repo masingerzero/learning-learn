@@ -1,5 +1,6 @@
 package org.masingerzero.modernjava.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +29,14 @@ public class DataHelper {
                 new Invoice(0006, "lemon", 2, 6.0, 12.0));
 
         return invoiceList;
+    }
+
+    public static List<Transaction> getTransactions() {
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(new Transaction("a12"));
+        transactions.add(new Transaction("C14"));
+        transactions.add(new Transaction("b13"));
+        return transactions;
     }
 
 

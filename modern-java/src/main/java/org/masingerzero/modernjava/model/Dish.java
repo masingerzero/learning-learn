@@ -1,12 +1,14 @@
 package org.masingerzero.modernjava.model;
 
-import static java.util.Arrays.asList;
+import com.sun.source.tree.ParenthesizedTree;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Dish {
+import static java.util.Arrays.asList;
+
+public class Dish extends ParentDish {
 
   private final String name;
   private final boolean vegetarian;
@@ -71,5 +73,12 @@ public class Dish {
     dishTags.put("prawns", asList("tasty", "roasted"));
     dishTags.put("salmon", asList("delicious", "fresh"));
   }
+
+  public CaloricLevel getCaloricLevel() {
+    if (this.getCalories() <= 400) return CaloricLevel.DIET;
+    else if (this.getCalories() <= 700) return CaloricLevel.NORMAL;
+    else return CaloricLevel.FAT;
+  }
+  public enum CaloricLevel { DIET, NORMAL, FAT };
 
 }
