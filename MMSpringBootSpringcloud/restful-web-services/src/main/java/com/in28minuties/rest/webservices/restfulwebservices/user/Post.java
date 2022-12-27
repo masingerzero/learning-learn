@@ -3,6 +3,7 @@ package com.in28minuties.rest.webservices.restfulwebservices.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -13,10 +14,9 @@ public class Post {
     @GeneratedValue
     @Setter(AccessLevel.NONE)
     private int id;
-
-    @JsonIgnore
+    @Size(min = 10)
     private String description;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

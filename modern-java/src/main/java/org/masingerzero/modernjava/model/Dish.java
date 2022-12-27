@@ -1,6 +1,7 @@
 package org.masingerzero.modernjava.model;
 
 import com.sun.source.tree.ParenthesizedTree;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.List;

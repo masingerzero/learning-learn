@@ -1,28 +1,28 @@
 package org.masingerzero.modernjava;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public class Sandbox {
 
     public static void main(String[] args) {
-//        System.out.println("Hello Shell");
-//       new Sandbox().testOverflow(0);
-
-//        Map<String, List<>> characterMap = new HashMap<>();
-//        characterMap.put("one", 'a');
-//        characterMap.put("one", 'b');
-//
-//        System.out.println(characterMap);
-
+        Function<Integer, ?> function = i -> i.compareTo(3);
+        test(function);
+        Function<Number, ?> function1 = number -> number.intValue();
+        test(function1);
     }
 
-    public void testOverflow(int i) {
-        System.out.println(i++);
-        testOverflow(i);
+    public static void test(Function<? super Integer, ?> f) {
+        Integer integer = 3;
+        Object apply = f.apply(integer);
     }
 
 }
+
+
 
 
 

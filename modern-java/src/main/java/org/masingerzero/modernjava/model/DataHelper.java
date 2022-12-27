@@ -1,11 +1,14 @@
 package org.masingerzero.modernjava.model;
 
+import org.masingerzero.modernjava.model.Car.Color;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static java.time.LocalDate.of;
 import static java.time.Month.*;
+import static org.masingerzero.modernjava.model.Car.Color.*;
 import static org.masingerzero.modernjava.model.Person.Sex.MALE;
 
 public class DataHelper {
@@ -39,6 +42,25 @@ public class DataHelper {
         return transactions;
     }
 
+    public static List<Car> getCars() {
+        List<Car> cars = Arrays.asList(new Car("Focus", "Ford", BLACK),
+                new Car("Ibiza", "SEAT", ORANGE),
+                new Car("Cordoba", "SEAT", ORANGE),
+                new Car("Leon", "SEAT", BLUE),
+                new Car("Altea", "SEAT", RED),
+                new Car("Panda", "SEAT", RED),
+
+                new Car("Mustang", "Ford", RED),
+                new Car("Kuga", "Ford", WHITE),
+                new Car("Scort", "Ford", WHITE),
+                new Car("Focus", "Ford", RED),
+
+                new Car("Rio", "Kia", RED),
+                new Car("Forte", "Kia", BLUE),
+                new Car("Soul", "Kia", BLACK));
+
+        return cars;
+    }
 
 
 
