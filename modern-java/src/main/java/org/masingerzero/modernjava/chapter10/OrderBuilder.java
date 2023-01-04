@@ -7,4 +7,9 @@ import java.util.function.Consumer;
 
 public class OrderBuilder {
 
+    private Order order;
+
+
+
+
 }
