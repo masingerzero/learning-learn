@@ -7,6 +7,10 @@ import org.masingerzero.modernjava.model.Order;
 import org.masingerzero.modernjava.model.Stock;
 import org.masingerzero.modernjava.model.Trade;
 
+import java.util.function.BinaryOperator;
+import java.util.function.DoubleUnaryOperator;
+import java.util.stream.Stream;
+
 import static org.masingerzero.modernjava.chapter10.MethodChainingOrderBuilder.forCustomer;
 import static org.masingerzero.modernjava.chapter10.TaxCalculatorV2.Tax.*;
 
@@ -49,7 +53,8 @@ public class Chapter10Test {
 //        Assertions.assertEquals(expectedOrder, order);
 
         double expectedTax = ((order.getValue() * 1.1) * 1.3) * 1.05;
-        double orderPriceWithTaxes = TaxCalculatorV2.calculateTaxes(order, REGIONAL, GENERAL, SURCHARGE);
+//        double orderPriceWithTaxes = TaxCalculatorV2.calculateTaxes(order, REGIONAL, GENERAL, SURCHARGE);
+        double orderPriceWithTaxes = TaxCalculatorV2.calculateTaxesV2(order, Tax::regional, Tax::general, Tax::surcharge);
 //        double totalOrderWithTaxes = new TaxCalculatorV3()
 //                .with(value -> value * 1.1)
 //                .with(value -> value * 1.3)
@@ -67,6 +72,17 @@ public class Chapter10Test {
 //
         System.out.println(orderPriceWithTaxes);
 
+
+    }
+
+    @Test
+    public void testFunctions() {
+        DoubleUnaryOperator f1 = a -> a * 1.3;
+        DoubleUnaryOperator f2 = a -> a * 1.5;
+        DoubleUnaryOperator f3 = a -> a * 1.5;
+        DoubleUnaryOperator doubleUnaryOperator = Stream.of(f1, f2, f3)
+                .reduce(DoubleUnaryOperator::andThen)
+                .orElseGet(DoubleUnaryOperator::identity);
 
     }
 

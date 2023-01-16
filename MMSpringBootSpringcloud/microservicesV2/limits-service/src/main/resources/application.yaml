@@ -1,3 +1,21 @@
+
+---
+
 spring:
   config:
     import: optional:configserver:http://localhost:8888
+
+  application:
+    name: limits-service
+
+#loggig
+logging:
+  level:
+    web: DEBUG
+#limits-service:
+#  minimum: 1
+#  maximum: 1000
+
+
+
+

@@ -22,6 +22,8 @@ public class TaxCalculatorV2 {
 //                .sum();
 //        return totalTax;
 
+        Tax tax0 = taxes[0];
+
         DoubleUnaryOperator reduce = Arrays.stream(taxes)
                 .map(Tax::getTaxFunction)
                 .reduce(DoubleUnaryOperator.identity(), DoubleUnaryOperator::andThen);
@@ -31,6 +33,14 @@ public class TaxCalculatorV2 {
         return v;
 
 
+    }
+
+    public static double calculateTaxesV2(Order order, DoubleUnaryOperator... taxesFunctions) {
+        double v = Arrays.stream(taxesFunctions)
+                .reduce(DoubleUnaryOperator::andThen)
+                .get()
+                .applyAsDouble(order.getValue());
+        return v;
     }
 
     enum Tax {
