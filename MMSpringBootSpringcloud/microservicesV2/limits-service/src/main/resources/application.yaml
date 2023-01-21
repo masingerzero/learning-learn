@@ -7,14 +7,21 @@ spring:
 
   application:
     name: limits-service
-
+limits-service:
+  minimum: 1
+  maximum: 6666
 #loggig
 logging:
   level:
     web: DEBUG
+---
+#spring:
+#  profiles:
+#    include:
+#      - dev
 #limits-service:
 #  minimum: 1
-#  maximum: 1000
+#  maximum: 6666
 
 
 
