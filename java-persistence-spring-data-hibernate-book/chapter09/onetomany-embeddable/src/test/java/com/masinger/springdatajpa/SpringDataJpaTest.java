@@ -11,10 +11,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {SpringDataConfiguration.class})
 public class SpringDataJpaTest {
 
-    @Autowired
-    TestService testService;
     @Test
     void storeLoadEntities() {
+
 
     }
 }

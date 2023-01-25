@@ -11,4 +11,6 @@ public class Limits {
     private int maximum;
     private int minimum;
 
+    private String source;
+
 }

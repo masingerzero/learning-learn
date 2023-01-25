@@ -8,26 +8,34 @@ public class Chapter11SandBox {
     public static void main(String[] args) {
 
 
-        Person person = new Person();
-        Optional<Person> optPerson = Optional.of(person);
-        Optional<String> s = optPerson.flatMap(Person::getCar)
-                .flatMap(Car::getInsurance)
-                .map(Insurance::getName);
+
     }
+
+//    public String getInsuranceName(Person person) {
+//        return person.getCar().getInsurance().getName();
+//    }
+    public String getInsuranceName(Person person) {
+        return Optional.ofNullable(person)
+                .map(Person::getCar)
+                .map(Car::getInsurance)
+                .map(Insurance::getName)
+                .orElse("No Insurance!!!");
+    }
+
 
 
 }
 
 @Data
 class Person {
-
-    private Optional<Car> car = Optional.empty();
+    private Car car;
+    private Optional<Car> optCar = Optional.empty();
 }
 
 @Data
 class Car {
-
-    private Optional<Insurance> insurance = Optional.empty();
+    private Insurance insurance;
+    private Optional<Insurance> optInsurance = Optional.empty();
 }
 
 @Data
