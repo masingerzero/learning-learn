@@ -22,4 +22,8 @@ public class Shipment {
     private Long id;
 
     private Date createdOn;
+
+    public Shipment(Date createdOn) {
+        this.createdOn = createdOn;
+    }
 }

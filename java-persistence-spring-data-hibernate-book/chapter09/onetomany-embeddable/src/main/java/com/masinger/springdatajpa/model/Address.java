@@ -2,16 +2,12 @@ package com.masinger.springdatajpa.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Embeddable
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Address {
     @NotNull
@@ -24,9 +20,29 @@ public class Address {
     @Column(nullable = false)
     private String city;
 
-    @EqualsAndHashCode.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @Setter(AccessLevel.NONE)
+//    @OneToMany
+//    @JoinColumn(name = "DELIVERY_ADDRESS_USER_ID", nullable = false)
+//    private Set<Shipment> deliveries = new HashSet<>();
+
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany
-    @JoinColumn(name = "DELIVERY_ADDRESS_USER_ID", nullable = false)
+    @JoinTable(name = "DELIVERIES",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+    inverseJoinColumns = @JoinColumn(name = "SHIPMENT_ID"))
     private Set<Shipment> deliveries = new HashSet<>();
+
+
+    public Address(String street, String zipCode, String city) {
+        this.street = street;
+        this.zipCode = zipCode;
+        this.city = city;
+    }
+
+    public void addShipment(Shipment shipment) {
+        deliveries.add(shipment);
+    }
 }
