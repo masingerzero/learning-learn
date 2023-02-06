@@ -1,20 +1,14 @@
 package com.in28minutes.microservices.currencyexchange;
 
-import com.in28minutes.microservices.currencyexchange.model.CurrencyExchange;
-import com.in28minutes.microservices.currencyexchange.respository.CurrencyExchangeRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.math.BigDecimal;
 
 @SpringBootApplication
 public class CurrencyExchangeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CurrencyExchangeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CurrencyExchangeApplication.class, args);
+    }
 
 
 //	@Bean

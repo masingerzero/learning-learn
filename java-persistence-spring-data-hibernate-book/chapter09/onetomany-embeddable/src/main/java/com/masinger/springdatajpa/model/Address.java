@@ -42,7 +42,8 @@ public class Address {
         this.city = city;
     }
 
-    public void addShipment(Shipment shipment) {
-        deliveries.add(shipment);
-    }
+   public void addShipment(Shipment shipment) {
+        this.deliveries.add(shipment);
+
+   }
 }

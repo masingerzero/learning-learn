@@ -3,14 +3,12 @@ package com.masinger.springdatajpa.model;
 import com.masinger.springdatajpa.Constants;
 import lombok.*;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
 @Data
+@Entity
+@Table(name = "USERS")
 public class User {
     @Setter(AccessLevel.NONE)
     @Id

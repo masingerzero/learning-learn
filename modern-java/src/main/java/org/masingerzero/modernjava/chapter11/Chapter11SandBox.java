@@ -2,58 +2,37 @@ package org.masingerzero.modernjava.chapter11;
 
 import lombok.Data;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Chapter11SandBox {
     public static void main(String[] args) {
-        Person person = new Person();
-        Optional<Car> optionalCar = Optional.ofNullable(person)
-                .map(Person::getCar)
-                .get();
+        //
+
+
 
     }
 
-//    public String getInsuranceName(Person person) {
-//        return person.getCar().getInsurance().getName();
-//    }
+    public static List<String> getInsuranceNames(List<Person> persons) {
 
 
-    public String getInsuranceName(Person person) {
-        return Optional.ofNullable(person)
-                .flatMap(Person::getCar)
-                .flatMap(Car::getInsurance)
-                .map(Insurance::getName)
-                .orElse("No Insurance!!!");
+
+
     }
 
-
-    public static String getInsuranceNameFoo(Person person) {
-
-
-        String insuranceName = Optional.ofNullable(person)
-                .map(Person::getCar)
-                .get()
-                .map(Car::getInsurance)
-                .get()
-                .map(Insurance::getName)
-                .orElse("No insurance name");
-
-
-        return insuranceName;
+    public static Optional<Insurance> nullSafeCheapestInsurance(Optional<Person> person, Optional<Car> car) {
+        if (person.isPresent() && car.isPresent()) {
+            return Optional.of(findTheCheapestInsurance(person.get(), car.get()));
+        } else {
+            return Optional.empty();
+        }
     }
 
-
-    public static String getInsuranceNameBar(Person person) {
-
-        String insuranceName = Optional.ofNullable(person)
-                .map(Person::getCar)
-                .map(Optional::get)
-                .map(Car::getInsurance)
-                .map(Optional::get)
-                .map(Insurance::getName)
-                .orElse("No insurance name");
-
-        return insuranceName;
+    public static Insurance findTheCheapestInsurance(Person person, Car car) {
+        Insurance insurance = new Insurance();
+        insurance.setName("The cheapest insurance is that...");
+        return insurance;
     }
 
 }
@@ -71,10 +50,12 @@ public class Chapter11SandBox {
 //}
 
 
+
+
 @Data
 class Person {
-    private Optional<Car> car = Optional.empty();
-
+    private Optional<List<Car>> cars = Optional.empty();
+//    private Optional<Car> car = Optional.empty();
 }
 
 @Data

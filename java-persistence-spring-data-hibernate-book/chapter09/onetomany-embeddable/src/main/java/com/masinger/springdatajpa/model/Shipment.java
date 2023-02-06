@@ -9,11 +9,13 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 @Entity
+@Table(name = "SHIPMENT")
 public class Shipment {
 
     @Setter(AccessLevel.NONE)
