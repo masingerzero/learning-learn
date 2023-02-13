@@ -1,11 +1,15 @@
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+
+
 server:
   port: 8765
 # Eureka naming server
@@ -13,5 +17,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-#trace: true
+#debug: true
+trace: true
