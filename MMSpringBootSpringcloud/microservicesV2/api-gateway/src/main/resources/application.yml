@@ -8,8 +8,15 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-
-
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id : my-route
+          uri : lb://currency-exchange
+          predicates:
+            - Path=/currency-exchange/**
 server:
   port: 8765
 # Eureka naming server

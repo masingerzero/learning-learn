@@ -20,13 +20,13 @@ public class Category {
 
     private String name;
 
-//    @EqualsAndHashCode.Exclude
-//    @ToString.Exclude
-//    @Setter(AccessLevel.NONE)
-//    @ManyToMany(cascade = {CascadeType.PERSIST})
-//    @JoinTable(name = "CATEGORY_ITEM", joinColumns = @JoinColumn(name = "CATEGORY_ID"), inverseJoinColumns = @JoinColumn(name = "ITEM_ID"))
-//    @OrderColumn(name = "ITEM_ORDER")
-//    private Set<Item> items = new HashSet<>();
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @Setter(AccessLevel.NONE)
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "CATEGORY_ITEM", joinColumns = @JoinColumn(name = "CATEGORY_ID"), inverseJoinColumns = @JoinColumn(name = "ITEM_ID"))
+    @OrderColumn(name = "ITEM_ORDER")
+    private Set<Item> items = new HashSet<>();
 
     //    @EqualsAndHashCode.Exclude
 //    @ToString.Exclude
@@ -36,14 +36,14 @@ public class Category {
 //    @OrderColumn(name = "ITEM_ORDER")
 //    private List<Item> items = new ArrayList<>();@EqualsAndHashCode.Exclude
 //
-    @ToString.Exclude
-    @Setter(AccessLevel.NONE)
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    @JoinTable(name = "CATEGORY_ITEM",
-            joinColumns = @JoinColumn(name = "CATEGORY_ID"), inverseJoinColumns = @JoinColumn(name = "ITEM_ID"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"CATEGORY_ID", "ITEM_ID"}))
-    @OrderColumn(name = "ITEM_ORDER")
-    private List<Item> items = new ArrayList<>();
+//    @ToString.Exclude
+//    @Setter(AccessLevel.NONE)
+//    @ManyToMany(cascade = {CascadeType.PERSIST})
+//    @JoinTable(name = "CATEGORY_ITEM",
+//            joinColumns = @JoinColumn(name = "CATEGORY_ID"), inverseJoinColumns = @JoinColumn(name = "ITEM_ID"),
+//            uniqueConstraints = @UniqueConstraint(columnNames = {"CATEGORY_ID", "ITEM_ID"}))
+//    @OrderColumn(name = "ITEM_ORDER")
+//    private List<Item> items = new ArrayList<>();
 
     public Category(String name) {
         this.name = name;

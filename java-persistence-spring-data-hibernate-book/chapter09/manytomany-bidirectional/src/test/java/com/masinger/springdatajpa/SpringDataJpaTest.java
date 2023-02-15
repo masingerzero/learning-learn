@@ -44,8 +44,8 @@ public class SpringDataJpaTest {
     }
 
 @Test
-    void testOther() {
-        testService.storeAndLoadEntities();
+    void testInverseSidePersistence() {
+        testService.testRelationFromInverseSide();
     }
 
     @Test

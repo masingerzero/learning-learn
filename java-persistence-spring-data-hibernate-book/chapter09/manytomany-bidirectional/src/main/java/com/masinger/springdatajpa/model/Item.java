@@ -3,10 +3,7 @@ package com.masinger.springdatajpa.model;
 import com.masinger.springdatajpa.Constants;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +25,10 @@ public class Item {
 
     public Item(String name) {
         this.name = name;
+    }
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
     }
 
 }
