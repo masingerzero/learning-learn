@@ -1,5 +1,8 @@
 package com.in28minutes.microservices.apigateway;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorDsl;
@@ -9,7 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApiGatewayConfiguration {
 
-//    @Bean
+    Logger logger = LoggerFactory.getLogger(ApiGatewayConfiguration.class);
+    @Bean
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(p -> p
@@ -32,12 +36,12 @@ public class ApiGatewayConfiguration {
                 .build();
     }
 
-    @Bean
-    public RouteLocator routes(RouteLocatorBuilder builder) {
-        return builder.routes()
-                .route(p -> p.path("/currency-exchange/**")
-                        .uri("lb://currency-exchange"))
-                .build();
-
-    }
+//    @Bean
+//    public GlobalFilter loggingFilter() {
+//        return (exchange, chain) -> {
+//            logger.info("Path of the request received -> {}", exchange.getRequest().getPath());
+//            return chain
+//                    .filter(exchange);
+//        };
+//    }
 }
