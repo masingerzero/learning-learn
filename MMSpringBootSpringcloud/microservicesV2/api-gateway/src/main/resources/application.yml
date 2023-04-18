@@ -26,3 +26,14 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 #debug: true
 #trace: true
+---
+#Observability
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+---
+# Logging format
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

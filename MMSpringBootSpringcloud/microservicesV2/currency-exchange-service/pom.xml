@@ -51,6 +51,30 @@
 <!--			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>-->
 <!--		</dependency>-->
 
+		<!-- observability -->
+		<!-- SB3 : Micrometer
+> OpenTelemetry
+> Zipkin
+-->
+		<!-- Micrometer - Vendor-neutral application observability facade.
+        Instrument your JVM-based application code without vendor lock-in.
+        Observation (Metrics & Logs) + Tracing.
+        -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-observation</artifactId>
+		</dependency>
+		<!-- OPTION 1: Open Telemetry as Bridge (RECOMMENDED) -->
+		<!-- Open Telemetry
+        - Simplified Observability (metrics, logs, and traces) -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-otel</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-zipkin</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,7 +102,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

@@ -48,8 +48,24 @@ resilience4j:
   ratelimiter:
     instances:
       default:
-        limitForPeriod: 2
+        limitForPeriod: 1
         limitRefreshPeriod: 10s
-
-
-
+        registerHealthIndicator: true
+      simple-api1:
+        limitForPeriod: 1
+        limitRefreshPeriod: 10s
+  bulkhead:
+    instances:
+      sample-api:
+        maxConcurrentCalls: 10
+---
+#Observability
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+---
+# Logging format
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
