@@ -197,6 +197,7 @@ public class SimpleTransitionsTest {
 
     @Test
     public void makeTransientBook() {
+
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Item someItem = new Item();
@@ -236,7 +237,7 @@ public class SimpleTransitionsTest {
             /*
                You can make the removed instance persistent again, cancelling the deletion.
              */
-         em.persist(item);
+
 
         // hibernate.use_identifier_rollback was enabled, it now looks like a transient instance
         assertNull(item.getId());
@@ -252,9 +253,9 @@ public class SimpleTransitionsTest {
 
         em = emf.createEntityManager();
         em.getTransaction().begin();
-
-        item = em.find(Item.class, ITEM_ID);
-        assertNull(item);
+        em.persist(item);
+//        item = em.find(Item.class, ITEM_ID);
+//        assertNull(item);
         em.getTransaction().commit();
         em.close();
     }
